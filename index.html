@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
 <script>
   document.documentElement.classList.add('js');
   try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -36,6 +36,9 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  html[lang="zh-CN"], html[lang="zh-CN"] body {
+    font-family: var(--sans), "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  }
   body {
     background: var(--bg); color: var(--ink); font: 16px/1.65 var(--sans);
     -webkit-font-smoothing: antialiased; overflow-x: hidden;
@@ -68,9 +71,19 @@
     padding: 6px 10px; border-radius: 999px; transition: color .2s, background .2s;
   }
   .nav-links a:hover, .nav-links a.active { color: var(--ink); background: var(--accent-soft); }
+  .lang-btn, .theme-btn {
+    height: 34px; cursor: pointer; margin-left: 8px;
+  }
+  .lang-btn {
+    padding: 0 13px; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--surface); color: var(--ink);
+    font-family: var(--mono); font-size: 12.5px; font-weight: 500;
+    transition: border-color .2s, color .2s, transform .2s;
+  }
+  .lang-btn:hover { border-color: var(--ink); }
   .theme-btn {
-    width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line);
-    background: var(--surface); color: var(--ink); cursor: pointer; margin-left: 8px;
+    width: 34px; border-radius: 50%; border: 1px solid var(--line);
+    background: var(--surface); color: var(--ink);
     display: grid; place-items: center; transition: transform .3s;
   }
   .theme-btn:hover { transform: rotate(25deg); }
@@ -256,12 +269,13 @@
   <div class="wrap">
     <a href="#top" class="brand">Tony<span>.</span></a>
     <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#oss">Open Source</a>
-      <a href="#skills">Skills</a>
+      <a href="#about" data-i18n="nav-about">About</a>
+      <a href="#experience" data-i18n="nav-experience">Experience</a>
+      <a href="#projects" data-i18n="nav-projects">Projects</a>
+      <a href="#oss" data-i18n="nav-oss">Open Source</a>
+      <a href="#skills" data-i18n="nav-skills">Skills</a>
     </div>
+    <button class="lang-btn" id="lang" aria-label="Toggle language">中文</button>
     <button class="theme-btn" id="theme" aria-label="Toggle colour theme">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
     </button>
@@ -270,16 +284,16 @@
 
 <header class="hero" id="top">
   <div class="wrap">
-    <div class="status mono reveal"><b>Currently</b> Graduate Student @ NUS</div>
+    <div class="status mono reveal" data-i18n="hero-status"><b>Currently</b> Graduate Student @ NUS</div>
     <h1 class="reveal">Tony <em>Wu</em></h1>
-    <div class="cn reveal">Wu Tianzhuo · 吴天卓 · From China, based in Singapore</div>
-    <p class="tagline reveal">
+    <div class="cn reveal" data-i18n="hero-cn">Wu Tianzhuo · 吴天卓 · From China, based in Singapore</div>
+    <p class="tagline reveal" data-i18n="hero-tagline">
       Product Manager with an engineer's hands — I design and build <b>AI products</b>,
       from user research all the way down to the code.
     </p>
     <div class="links reveal">
       <a class="btn primary" href="mailto:tonywu.vip@outlook.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-i18n="hero-email">Email me</span></a>
       <a class="btn" href="https://github.com/TonyWu2333" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5Z"/></svg>GitHub</a>
       <a class="btn" href="https://www.linkedin.com/in/tianzhuo-wu-ab4928416/" target="_blank" rel="noopener">
@@ -293,19 +307,19 @@
 <main>
 <section id="about">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="mono">01</span><h2>About</h2></div>
+    <div class="sec-head reveal"><span class="mono">01</span><h2 data-i18n="about-h2">About</h2></div>
     <div class="about">
       <div class="reveal">
-        <p>I work where product meets engineering: I talk to users, write the PRD, then help build it.</p>
-        <p class="muted">Most recently I planned and shipped an agent-based RAG knowledge platform with hybrid retrieval, 96% answer accuracy and 24/7 self-service. Before that, as a product manager, I found where users dropped off at checkout and lifted payment conversion by about 6%.</p>
-        <p class="muted">Now I'm a graduate student in Systems Analysis at NUS, working as a software engineer at SendOS, and contributing to open-source AI tooling on the side.</p>
+        <p data-i18n="about-p1">I work where product meets engineering: I talk to users, write the PRD, then help build it.</p>
+        <p class="muted" data-i18n="about-p2">Most recently I planned and shipped an agent-based RAG knowledge platform with hybrid retrieval, 96% answer accuracy and 24/7 self-service. Before that, as a product manager, I found where users dropped off at checkout and lifted payment conversion by about 6%.</p>
+        <p class="muted" data-i18n="about-p3">Now I'm a graduate student in Systems Analysis at NUS, working as a software engineer at SendOS, and contributing to open-source AI tooling on the side.</p>
       </div>
       <div class="facts reveal">
-        <div><span class="mono">From</span><span>China</span></div>
-        <div><span class="mono">Based in</span><span>Singapore</span></div>
-        <div><span class="mono">Studying</span><span>NUS · Systems Analysis</span></div>
-        <div><span class="mono">Focus</span><span>AI Products · RAG · Agents</span></div>
-        <div><span class="mono">Languages</span><span>Mandarin · English</span></div>
+        <div><span class="mono" data-i18n="fact-from-l">From</span><span data-i18n="fact-from-v">China</span></div>
+        <div><span class="mono" data-i18n="fact-based-l">Based in</span><span data-i18n="fact-based-v">Singapore</span></div>
+        <div><span class="mono" data-i18n="fact-study-l">Studying</span><span data-i18n="fact-study-v">NUS · Systems Analysis</span></div>
+        <div><span class="mono" data-i18n="fact-focus-l">Focus</span><span data-i18n="fact-focus-v">AI Products · RAG · Agents</span></div>
+        <div><span class="mono" data-i18n="fact-lang-l">Languages</span><span data-i18n="fact-lang-v">Mandarin · English</span></div>
       </div>
     </div>
   </div>
@@ -313,45 +327,45 @@
 
 <section id="experience">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="mono">02</span><h2>Experience</h2></div>
+    <div class="sec-head reveal"><span class="mono">02</span><h2 data-i18n="exp-h2">Experience</h2></div>
 
     <div class="tl-item reveal">
-      <div class="tl-date"><span class="mono">Sep 2026 — Now</span><span class="mono muted">Singapore</span></div>
+      <div class="tl-date"><span class="mono">Sep 2026 — Now</span><span class="mono muted" data-i18n="loc-singapore">Singapore</span></div>
       <div class="tl-body">
-        <h3>Software Engineer</h3>
+        <h3 data-i18n="exp-1-title">Software Engineer</h3>
         <div class="org">SendOS</div>
-        <p class="intro">An AI-native business operating system: chat messages become goals through an understanding pipeline, and every action runs through governed connectors with human approval and an audit trace.</p>
+        <p class="intro" data-i18n="exp-1-intro">An AI-native business operating system: chat messages become goals through an understanding pipeline, and every action runs through governed connectors with human approval and an audit trace.</p>
         <ul class="pts">
-          <li><b>Platform Development</b> — building the SendOS platform as part of the engineering team.</li>
+          <li data-i18n="exp-1-pt1"><b>Platform Development</b> — building the SendOS platform as part of the engineering team.</li>
         </ul>
       </div>
     </div>
 
     <div class="tl-item reveal">
-      <div class="tl-date"><span class="mono">Mar — May 2026</span><span class="mono muted">Hangzhou</span></div>
+      <div class="tl-date"><span class="mono">Mar — May 2026</span><span class="mono muted" data-i18n="loc-hangzhou">Hangzhou</span></div>
       <div class="tl-body">
-        <h3>Full-Stack AI Engineer</h3>
+        <h3 data-i18n="exp-2-title">Full-Stack AI Engineer</h3>
         <div class="org">Saizhi Technology</div>
         <ul class="pts">
-          <li><b>AI Knowledge Base Strategy</b> — planned an agent-based RAG platform giving sales, service engineers and customers AI self-service.</li>
-          <li><b>Product Design</b> — designed retrieval workflows for manuals, FAQs, troubleshooting, citations, feedback and role-based access.</li>
-          <li><b>Retrieval Optimisation</b> — hybrid BM25 + vector search + LLM reranking, reaching <span class="metric">96% accuracy</span> with traceable answers.</li>
-          <li><b>Role-Based AI</b> — role-specific prompt templates and permission models that protect business-sensitive information.</li>
-          <li><b>Delivery</b> — took it from requirements to launch: <span class="metric">24/7 self-service</span> and a lighter support workload.</li>
+          <li data-i18n="exp-2-pt1"><b>AI Knowledge Base Strategy</b> — planned an agent-based RAG platform giving sales, service engineers and customers AI self-service.</li>
+          <li data-i18n="exp-2-pt2"><b>Product Design</b> — designed retrieval workflows for manuals, FAQs, troubleshooting, citations, feedback and role-based access.</li>
+          <li data-i18n="exp-2-pt3"><b>Retrieval Optimisation</b> — hybrid BM25 + vector search + LLM reranking, reaching <span class="metric">96% accuracy</span> with traceable answers.</li>
+          <li data-i18n="exp-2-pt4"><b>Role-Based AI</b> — role-specific prompt templates and permission models that protect business-sensitive information.</li>
+          <li data-i18n="exp-2-pt5"><b>Delivery</b> — took it from requirements to launch: <span class="metric">24/7 self-service</span> and a lighter support workload.</li>
         </ul>
       </div>
     </div>
 
     <div class="tl-item reveal">
-      <div class="tl-date"><span class="mono">Apr 2024 — Jan 2025</span><span class="mono muted">Hangzhou</span></div>
+      <div class="tl-date"><span class="mono">Apr 2024 — Jan 2025</span><span class="mono muted" data-i18n="loc-hangzhou">Hangzhou</span></div>
       <div class="tl-body">
-        <h3>Product Manager</h3>
+        <h3 data-i18n="exp-3-title">Product Manager</h3>
         <div class="org">Hangzhou Zhiliaosiyuan</div>
         <ul class="pts">
-          <li><b>Roadmap</b> — user research, competitive analysis and backlog prioritisation with engineering.</li>
-          <li><b>Feature Design</b> — search, favourites, AI input suggestions and toolbar improvements for discovery and engagement.</li>
-          <li><b>Payment Optimisation</b> — traced checkout drop-off and reworked the flow with sales and finance, lifting conversion by <span class="metric">~6%</span>.</li>
-          <li><b>Game Design</b> — co-designed the "Trash Bin Battle" AI mini-game, from mechanics to tested prototypes.</li>
+          <li data-i18n="exp-3-pt1"><b>Roadmap</b> — user research, competitive analysis and backlog prioritisation with engineering.</li>
+          <li data-i18n="exp-3-pt2"><b>Feature Design</b> — search, favourites, AI input suggestions and toolbar improvements for discovery and engagement.</li>
+          <li data-i18n="exp-3-pt3"><b>Payment Optimisation</b> — traced checkout drop-off and reworked the flow with sales and finance, lifting conversion by <span class="metric">~6%</span>.</li>
+          <li data-i18n="exp-3-pt4"><b>Game Design</b> — co-designed the "Trash Bin Battle" AI mini-game, from mechanics to tested prototypes.</li>
         </ul>
       </div>
     </div>
@@ -360,20 +374,20 @@
 
 <section id="projects">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="mono">03</span><h2>Projects</h2></div>
+    <div class="sec-head reveal"><span class="mono">03</span><h2 data-i18n="projects-h2">Projects</h2></div>
     <div class="grid">
       <a class="card feature reveal" href="https://github.com/morluto/rea" target="_blank" rel="noopener">
         <div style="display:flex;flex-direction:column;gap:14px">
           <div class="card-top"><span class="mono muted">Open Source · Oct 2026 — Now</span></div>
           <h3>rea</h3>
-          <div class="org">Contributor</div>
-          <p>An agent-driven reverse engineering toolkit, from app behaviour down to native binaries. I fixed .NET image classification, Mach-O platform naming and Apple NIB test handling.</p>
+          <div class="org" data-i18n="role-contributor">Contributor</div>
+          <p data-i18n="rea-desc">An agent-driven reverse engineering toolkit, from app behaviour down to native binaries. I fixed .NET image classification, Mach-O platform naming and Apple NIB test handling.</p>
           <div class="card-links"><span>View on GitHub <span class="arrow">↗</span></span></div>
         </div>
         <div style="display:flex;flex-direction:column;justify-content:flex-end;gap:6px">
           <div class="big-stat">270k+</div>
-          <span class="mono muted">GitHub stars on the project</span>
-          <div class="tags"><span class="tag">Reverse Engineering</span><span class="tag">.NET</span><span class="tag">Mach-O</span><span class="tag">AI Agents</span></div>
+          <span class="mono muted" data-i18n="stars-label">GitHub stars on the project</span>
+          <div class="tags"><span class="tag" data-i18n="tag-re">Reverse Engineering</span><span class="tag">.NET</span><span class="tag">Mach-O</span><span class="tag" data-i18n="tag-agents">AI Agents</span></div>
         </div>
       </a>
 
@@ -381,24 +395,24 @@
         <div style="display:flex;flex-direction:column;gap:14px">
           <div class="card-top"><span class="mono muted">Open Source · Oct 2026 — Now</span></div>
           <h3>Ponytail</h3>
-          <div class="org">Contributor</div>
-          <p>An open-source plugin that makes AI coding agents favour the simplest working solution.</p>
+          <div class="org" data-i18n="role-contributor">Contributor</div>
+          <p data-i18n="ponytail-desc">An open-source plugin that makes AI coding agents favour the simplest working solution.</p>
           <div class="card-links"><span>View on GitHub <span class="arrow">↗</span></span></div>
         </div>
         <div style="display:flex;flex-direction:column;justify-content:flex-end;gap:6px">
           <div class="big-stat">160k+</div>
-          <span class="mono muted">GitHub stars on the project</span>
-          <div class="tags"><span class="tag">AI Agents</span><span class="tag">Python</span><span class="tag">Testing</span></div>
+          <span class="mono muted" data-i18n="stars-label">GitHub stars on the project</span>
+          <div class="tags"><span class="tag" data-i18n="tag-agents">AI Agents</span><span class="tag">Python</span><span class="tag">Testing</span></div>
         </div>
       </a>
 
       <div class="card reveal">
         <div class="card-top"><span class="mono muted">NUS · Aug 2026 · Team of 7</span></div>
         <h3>CampusLink</h3>
-        <div class="org">Product Manager</div>
-        <p>An AI campus workspace with a chat agent that acts under human confirmation. I also built the mail &amp; calendar module.</p>
+        <div class="org" data-i18n="role-pm">Product Manager</div>
+        <p data-i18n="campus-desc">An AI campus workspace with a chat agent that acts under human confirmation. I also built the mail &amp; calendar module.</p>
         <div class="card-links">
-          <a href="https://github.com/t2047/CampusLink" target="_blank" rel="noopener">Code <span class="arrow">↗</span></a>
+          <a href="https://github.com/t2047/CampusLink" target="_blank" rel="noopener"><span data-i18n="code-label">Code</span> <span class="arrow">↗</span></a>
         </div>
         <div class="tags"><span class="tag">FastAPI</span><span class="tag">LangChain</span><span class="tag">MCP</span><span class="tag">React</span><span class="tag">Docker</span></div>
       </div>
@@ -406,10 +420,10 @@
       <div class="card reveal">
         <div class="card-top"><span class="mono muted">NUS · Jun — Jul 2026</span></div>
         <h3>AI Wellness Mobile App</h3>
-        <div class="org">Repo Maintainer</div>
-        <p>An Android wellness assistant backed by a RAG agent over a medical knowledge base.</p>
+        <div class="org" data-i18n="role-maintainer">Repo Maintainer</div>
+        <p data-i18n="wellness-desc">An Android wellness assistant backed by a RAG agent over a medical knowledge base.</p>
         <div class="card-links">
-          <a href="https://github.com/TonyWu2333/AI-Wellness-Mobile-App" target="_blank" rel="noopener">Code <span class="arrow">↗</span></a>
+          <a href="https://github.com/TonyWu2333/AI-Wellness-Mobile-App" target="_blank" rel="noopener"><span data-i18n="code-label">Code</span> <span class="arrow">↗</span></a>
         </div>
         <div class="tags"><span class="tag">Kotlin</span><span class="tag">Spring Boot</span><span class="tag">RAG</span><span class="tag">DeepSeek</span></div>
       </div>
@@ -417,8 +431,8 @@
       <div class="card reveal">
         <div class="card-top"><span class="mono muted">Open Source · 1.1k+ ★</span></div>
         <h3>AgentRQ</h3>
-        <div class="org">Contributor · 3 PRs</div>
-        <p>A self-hosted human-in-the-loop task manager for AI agents.</p>
+        <div class="org" data-i18n="agentrq-role">Contributor · 3 PRs</div>
+        <p data-i18n="agentrq-desc">A self-hosted human-in-the-loop task manager for AI agents.</p>
         <div class="card-links">
           <a href="https://github.com/agentrq/agentrq/pull/316" target="_blank" rel="noopener">#316 <span class="arrow">↗</span></a>
           <a href="https://github.com/agentrq/agentrq/pull/328" target="_blank" rel="noopener">#328 <span class="arrow">↗</span></a>
@@ -433,56 +447,56 @@
 
 <section id="oss">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="mono">04</span><h2>Open Source</h2></div>
-    <p class="muted oss-intro reveal">Merged pull requests I've contributed.</p>
+    <div class="sec-head reveal"><span class="mono">04</span><h2 data-i18n="oss-h2">Open Source</h2></div>
+    <p class="muted oss-intro reveal" data-i18n="oss-intro">Merged pull requests I've contributed.</p>
     <div class="oss reveal">
       <a href="https://github.com/grpc-ecosystem/grpc-gateway/pull/7484" target="_blank" rel="noopener">
-        <span class="name">grpc-gateway<small>gRPC to JSON proxy generator</small></span>
+        <span class="name">grpc-gateway<small data-i18n="grpc-small">gRPC to JSON proxy generator</small></span>
         <span class="star">★ 20k+</span>
-        <span class="what">Made the OpenAPI generator honour the required field option on repeated fields.</span>
-        <span class="pr">Merged PR #7484 ↗</span>
+        <span class="what" data-i18n="grpc-what">Made the OpenAPI generator honour the required field option on repeated fields.</span>
+        <span class="pr" data-i18n="grpc-pr">Merged PR #7484 ↗</span>
       </a>
       <a href="https://github.com/MODSetter/SurfSense/pull/2203" target="_blank" rel="noopener">
-        <span class="name">SurfSense<small>Open-source NotebookLM alternative</small></span>
+        <span class="name">SurfSense<small data-i18n="surf-small">Open-source NotebookLM alternative</small></span>
         <span class="star">★ 16k+</span>
-        <span class="what">Printed local script tracebacks relative to their run folder so errors point at the right file.</span>
-        <span class="pr">Merged PR #2203 ↗</span>
+        <span class="what" data-i18n="surf-what">Printed local script tracebacks relative to their run folder so errors point at the right file.</span>
+        <span class="pr" data-i18n="surf-pr">Merged PR #2203 ↗</span>
       </a>
       <a href="https://github.com/isomorphic-git/isomorphic-git/pull/2444" target="_blank" rel="noopener">
-        <span class="name">isomorphic-git<small>Pure-JS Git for Node &amp; browsers</small></span>
+        <span class="name">isomorphic-git<small data-i18n="git-small">Pure-JS Git for Node &amp; browsers</small></span>
         <span class="star">★ 8.3k+</span>
-        <span class="what">Made cherry-pick refuse to run over local changes, so uncommitted work is never overwritten.</span>
-        <span class="pr">Merged PR #2444 ↗</span>
+        <span class="what" data-i18n="git-what">Made cherry-pick refuse to run over local changes, so uncommitted work is never overwritten.</span>
+        <span class="pr" data-i18n="git-pr">Merged PR #2444 ↗</span>
       </a>
       <a href="https://github.com/TabularisDB/tabularis/pull/900" target="_blank" rel="noopener">
-        <span class="name">tabularis<small>Open-source desktop SQL workspace</small></span>
+        <span class="name">tabularis<small data-i18n="tab-small">Open-source desktop SQL workspace</small></span>
         <span class="star">★ 5.2k+</span>
-        <span class="what">Turned EXPLAIN Analyze off by default for every data-modifying statement, so explaining a query never changes data.</span>
-        <span class="pr">Merged PR #900 ↗</span>
+        <span class="what" data-i18n="tab-what">Turned EXPLAIN Analyze off by default for every data-modifying statement, so explaining a query never changes data.</span>
+        <span class="pr" data-i18n="tab-pr">Merged PR #900 ↗</span>
       </a>
       <a href="https://github.com/Javis603/token-monitor/pull/852" target="_blank" rel="noopener">
-        <span class="name">token-monitor<small>Token usage across 46+ AI tools</small></span>
+        <span class="name">token-monitor<small data-i18n="token-small">Token usage across 46+ AI tools</small></span>
         <span class="star">★ 3.1k+</span>
-        <span class="what">Fixed OpenRouter key-limit tracking to measure a resetting limit against its current period.</span>
-        <span class="pr">Merged PR #852 ↗</span>
+        <span class="what" data-i18n="token-what">Fixed OpenRouter key-limit tracking to measure a resetting limit against its current period.</span>
+        <span class="pr" data-i18n="token-pr">Merged PR #852 ↗</span>
       </a>
       <a href="https://github.com/xmanrui/dsh-im/pull/265" target="_blank" rel="noopener">
-        <span class="name">dsh-im<small>IM bots for DeepSeek Harness</small></span>
+        <span class="name">dsh-im<small data-i18n="dshim-small">IM bots for DeepSeek Harness</small></span>
         <span class="star">★ 2.0k+</span>
-        <span class="what">Kept Feishu Live process messages inside their topic thread.</span>
-        <span class="pr">Merged PR #265 ↗</span>
+        <span class="what" data-i18n="dshim-what">Kept Feishu Live process messages inside their topic thread.</span>
+        <span class="pr" data-i18n="dshim-pr">Merged PR #265 ↗</span>
       </a>
       <a href="https://github.com/AdamPlatin123/dsh-plugin-radar/pull/818" target="_blank" rel="noopener">
-        <span class="name">dsh-plugin-radar<small>Ecosystem radar for DSH plugins</small></span>
+        <span class="name">dsh-plugin-radar<small data-i18n="radar-small">Ecosystem radar for DSH plugins</small></span>
         <span class="star">★ 1.4k+</span>
-        <span class="what">Fixed the classify.py CLI to list all 13 taxonomy domains with their real definitions.</span>
-        <span class="pr">Merged PR #818 ↗</span>
+        <span class="what" data-i18n="radar-what">Fixed the classify.py CLI to list all 13 taxonomy domains with their real definitions.</span>
+        <span class="pr" data-i18n="radar-pr">Merged PR #818 ↗</span>
       </a>
       <a href="https://github.com/letstri/druk/pull/108" target="_blank" rel="noopener">
-        <span class="name">druk<small>Terminal code editor</small></span>
+        <span class="name">druk<small data-i18n="druk-small">Terminal code editor</small></span>
         <span class="star">★ 780+</span>
-        <span class="what">Marked a missing final newline in the diff view wherever the last line appears.</span>
-        <span class="pr">Merged PR #108 ↗</span>
+        <span class="what" data-i18n="druk-what">Marked a missing final newline in the diff view wherever the last line appears.</span>
+        <span class="pr" data-i18n="druk-pr">Merged PR #108 ↗</span>
       </a>
     </div>
   </div>
@@ -490,38 +504,38 @@
 
 <section id="skills">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="mono">05</span><h2>Skills</h2></div>
+    <div class="sec-head reveal"><span class="mono">05</span><h2 data-i18n="skills-h2">Skills</h2></div>
     <div class="skills">
       <div class="reveal">
-        <h3>Product</h3>
+        <h3 data-i18n="product-h3">Product</h3>
         <div class="chips">
-          <span class="chip">Product Management</span><span class="chip">Requirements Analysis</span><span class="chip">User Research</span>
-          <span class="chip">Competitive Analysis</span><span class="chip">PRD Writing</span><span class="chip">Prototyping</span>
+          <span class="chip" data-i18n="sk-pm">Product Management</span><span class="chip" data-i18n="sk-req">Requirements Analysis</span><span class="chip" data-i18n="sk-user">User Research</span>
+          <span class="chip" data-i18n="sk-comp">Competitive Analysis</span><span class="chip" data-i18n="sk-prd">PRD Writing</span><span class="chip" data-i18n="sk-proto">Prototyping</span>
           <span class="chip">Agile / Scrum</span><span class="chip">Figma</span><span class="chip">Axure RP</span><span class="chip">Jira</span>
           <span class="chip">Xmind</span><span class="chip">Visio</span>
         </div>
       </div>
       <div class="reveal">
-        <h3>Technical</h3>
+        <h3 data-i18n="tech-h3">Technical</h3>
         <div class="chips">
-          <span class="chip">RAG</span><span class="chip">AI Agents</span><span class="chip">Python</span><span class="chip">Java</span>
+          <span class="chip">RAG</span><span class="chip" data-i18n="sk-agents">AI Agents</span><span class="chip">Python</span><span class="chip">Java</span>
           <span class="chip">JavaScript</span><span class="chip">Vue.js</span><span class="chip">SQL</span><span class="chip">C / C++</span>
-          <span class="chip">Android</span><span class="chip">Machine Learning</span><span class="chip">Linux</span><span class="chip">DevOps</span>
-          <span class="chip">Architecture Design</span>
+          <span class="chip">Android</span><span class="chip" data-i18n="sk-ml">Machine Learning</span><span class="chip">Linux</span><span class="chip">DevOps</span>
+          <span class="chip" data-i18n="sk-arch">Architecture Design</span>
         </div>
       </div>
     </div>
 
     <dl class="info reveal">
-      <div><dt>Education</dt>
-        <dd><p><b>National University of Singapore</b> · Grad Dip, Systems Analysis</p><span>2026 — Now</span></dd>
-        <dd><p><b>Zhejiang University of Technology</b> · B.Eng., Software Engineering</p><span>2022 — 2026</span></dd></div>
-      <div><dt>Awards</dt>
-        <dd><p><b>Second Prize</b> · Zhejiang Provincial Cybersecurity Competition</p></dd></div>
-      <div><dt>Languages</dt>
-        <dd><p><b>Mandarin</b> native · <b>English</b> professional</p></dd></div>
-      <div><dt>Interests</dt>
-        <dd><p>Bilibili channel with ~10k followers · Minecraft server with my own mod</p></dd></div>
+      <div><dt data-i18n="info-edu">Education</dt>
+        <dd><p data-i18n="info-edu-nus"><b>National University of Singapore</b> · Grad Dip, Systems Analysis</p><span>2026 — Now</span></dd>
+        <dd><p data-i18n="info-edu-zjut"><b>Zhejiang University of Technology</b> · B.Eng., Software Engineering</p><span>2022 — 2026</span></dd></div>
+      <div><dt data-i18n="info-awards">Awards</dt>
+        <dd><p data-i18n="info-award-txt"><b>Second Prize</b> · Zhejiang Provincial Cybersecurity Competition</p></dd></div>
+      <div><dt data-i18n="info-lang">Languages</dt>
+        <dd><p data-i18n="info-lang-txt"><b>Mandarin</b> native · <b>English</b> professional</p></dd></div>
+      <div><dt data-i18n="info-interests">Interests</dt>
+        <dd><p data-i18n="info-interest-txt">Bilibili channel with ~10k followers · Minecraft server with my own mod</p></dd></div>
     </dl>
   </div>
 </section>
@@ -529,15 +543,15 @@
 
 <footer>
   <div class="wrap">
-    <span class="mono muted reveal">06 — Contact</span>
-    <div class="cta reveal" style="margin-top:20px">Let's build<br>something <a href="mailto:tonywu.vip@outlook.com">together.</a></div>
+    <span class="mono muted reveal" data-i18n="contact-label">06 — Contact</span>
+    <div class="cta reveal" style="margin-top:20px" data-i18n="cta">Let's build<br>something <a href="mailto:tonywu.vip@outlook.com">together.</a></div>
     <div class="foot">
-      <span class="mono muted">© 2026 Tony Wu · Singapore</span>
-      <div class="links-sm mono muted">
-        <a href="mailto:tonywu.vip@outlook.com">Email</a>
+      <span class="mono muted" data-i18n="copyright">© 2026 Tony Wu · Singapore</span>
+      <div class="links-sm mono">
+        <a href="mailto:tonywu.vip@outlook.com" data-i18n="nav-email">Email</a>
         <a href="https://github.com/TonyWu2333" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/tianzhuo-wu-ab4928416/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://www.tonywu.top" target="_blank" rel="noopener">Blog</a>
+        <a href="https://www.tonywu.top" target="_blank" rel="noopener" data-i18n="nav-blog">Blog</a>
       </div>
     </div>
   </div>
@@ -571,6 +585,131 @@
     const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
     root.dataset.theme = dark ? 'light' : 'dark';
     try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  };
+
+  // --- language toggle (default English, switchable to Chinese) ---
+  const LANG_ZH = {
+    'nav-about': '关于', 'nav-experience': '经历', 'nav-projects': '项目',
+    'nav-oss': '开源', 'nav-skills': '技能',
+
+    'hero-status': '<b>目前</b> 在读研究生 · 新加坡国立大学 (NUS)',
+    'hero-cn': '吴天卓 · Wu Tianzhuo · 来自中国，现居新加坡',
+    'hero-tagline': '产品经理的头脑 + 工程师的双手——我从用户研究一路做到代码，设计并落地 <b>AI 产品</b>。',
+    'hero-email': '发邮件给我',
+
+    'about-h2': '关于我',
+    'about-p1': '我在产品与工程的交汇处工作：倾听用户、撰写 PRD，然后亲自参与构建。',
+    'about-p2': '最近我规划并交付了一个基于智能体（Agent）的 RAG 知识平台：混合检索、96% 的答案准确率与 24/7 自助服务。此前作为产品经理，我定位了用户在下单结算环节的流失点，将支付转化率提升了约 6%。',
+    'about-p3': '目前我是新加坡国立大学（NUS）系统分析方向的研究生，同时在 SendOS 担任软件工程师，并业余参与开源 AI 工具的开发。',
+
+    'fact-from-l': '来自', 'fact-from-v': '中国',
+    'fact-based-l': '现居', 'fact-based-v': '新加坡',
+    'fact-study-l': '在读', 'fact-study-v': 'NUS · 系统分析',
+    'fact-focus-l': '专注', 'fact-focus-v': 'AI 产品 · RAG · 智能体',
+    'fact-lang-l': '语言', 'fact-lang-v': '中文（母语）· 英语',
+
+    'exp-h2': '经历',
+    'loc-singapore': '新加坡', 'loc-hangzhou': '杭州',
+    'exp-1-title': '软件工程师',
+    'exp-1-intro': '一个 AI 原生的企业操作系统：聊天消息经理解流水线转化为目标，每项操作都通过受治理的连接器执行，含人工审批与完整审计追踪。',
+    'exp-1-pt1': '<b>平台开发</b>——作为工程团队一员构建 SendOS 平台。',
+
+    'exp-2-title': '全栈 AI 工程师',
+    'exp-2-pt1': '<b>AI 知识库规划</b>——规划了基于智能体的 RAG 平台，为销售、服务工程师与客户提供 AI 自助服务。',
+    'exp-2-pt2': '<b>产品设计</b>——为手册、FAQ、故障排查、引用、反馈与基于角色的访问设计检索工作流。',
+    'exp-2-pt3': '<b>检索优化</b>——混合 BM25 + 向量检索 + 大模型重排，实现可溯源的 <span class="metric">96% 准确率</span>。',
+    'exp-2-pt4': '<b>基于角色的 AI</b>——针对角色的提示词模板与权限模型，保护业务敏感信息。',
+    'exp-2-pt5': '<b>交付</b>——从需求推进到上线：<span class="metric">24/7 自助服务</span>，显著减轻了支持工作量。',
+
+    'exp-3-title': '产品经理',
+    'exp-3-pt1': '<b>路线图</b>——用户调研、竞品分析，并与工程团队一起确定需求优先级。',
+    'exp-3-pt2': '<b>功能设计</b>——搜索、收藏、AI 输入建议与工具栏优化，提升产品的发现与留存。',
+    'exp-3-pt3': '<b>支付优化</b>——定位结算环节流失，与销售、财务重构流程，将转化率提升约 <span class="metric">6%</span>。',
+    'exp-3-pt4': '<b>游戏设计</b>——共同设计 AI 小游戏「垃圾箱大战」，从机制到可测试的原型。',
+
+    'projects-h2': '项目',
+    'role-contributor': '贡献者', 'role-pm': '产品经理', 'role-maintainer': '仓库维护者',
+    'agentrq-role': '贡献者 · 3 个 PR',
+    'rea-desc': '一个由智能体驱动的逆向工程工具集，从应用行为深入到原生二进制。我修复了 .NET 图像分类、Mach-O 平台命名与 Apple NIB 测试处理。',
+    'ponytail-desc': '一个开源插件，让 AI 编码代理倾向于采用最简单可行的方案。',
+    'campus-desc': '一个 AI 校园工作台，内含有在人工确认下行动的聊天代理。我还构建了邮件与日历模块。',
+    'wellness-desc': '一个 Android 健康助手，由基于医学知识库的 RAG 智能体驱动。',
+    'agentrq-desc': '一个自托管、人在回路（human-in-the-loop）的 AI 智能体任务管理器。',
+    'stars-label': '项目累计 GitHub 星标',
+    'code-label': '代码',
+    'tag-re': '逆向工程', 'tag-agents': 'AI 智能体',
+
+    'oss-h2': '开源贡献',
+    'oss-intro': '我已合并的 pull request 贡献。',
+    'grpc-pr': '已合并 PR #7484 ↗',
+    'surf-pr': '已合并 PR #2203 ↗',
+    'git-pr': '已合并 PR #2444 ↗',
+    'tab-pr': '已合并 PR #900 ↗',
+    'token-pr': '已合并 PR #852 ↗',
+    'dshim-pr': '已合并 PR #265 ↗',
+    'radar-pr': '已合并 PR #818 ↗',
+    'druk-pr': '已合并 PR #108 ↗',
+    'grpc-small': 'gRPC 转 JSON 代理生成器',
+    'grpc-what': '让 OpenAPI 生成器在重复字段上遵守 required 字段选项。',
+    'surf-small': '开源 NotebookLM 替代品',
+    'surf-what': '按运行目录打印本地脚本回溯，让报错指向正确的文件。',
+    'git-small': '纯 JS 实现的 Git（Node 与浏览器）',
+    'git-what': '让 cherry-pick 在存在本地改动时拒绝执行，避免未提交的工作被覆盖。',
+    'tab-small': '开源桌面 SQL 工作台',
+    'tab-what': '对每条数据修改语句默认关闭 EXPLAIN ANALYZE，避免解释查询时意外改变数据。',
+    'token-small': '覆盖 46+ AI 工具的 Token 用量',
+    'token-what': '修复 OpenRouter 的额度跟踪，按当前周期衡量重置中的限额。',
+    'dshim-small': 'DeepSeek Harness 的 IM 机器人',
+    'dshim-what': '让飞书 Live 流程消息保持在各自的主题线程内。',
+    'radar-small': 'DSH 插件生态雷达',
+    'radar-what': '修复 classify.py 命令行，列出全部 13 个分类域及其实例定义。',
+    'druk-small': '终端代码编辑器',
+    'druk-what': '在 diff 视图中为最后一行的位置标记缺失的末尾换行。',
+
+    'skills-h2': '技能',
+    'product-h3': '产品',
+    'tech-h3': '技术',
+    'sk-pm': '产品管理', 'sk-req': '需求分析', 'sk-user': '用户调研',
+    'sk-comp': '竞品分析', 'sk-prd': 'PRD 撰写', 'sk-proto': '原型设计',
+    'sk-agents': 'AI 智能体', 'sk-ml': '机器学习', 'sk-arch': '架构设计',
+
+    'info-edu': '教育',
+    'info-edu-nus': '<b>新加坡国立大学</b> · 系统分析研究生文凭（Grad Dip）',
+    'info-edu-zjut': '<b>浙江工业大学</b> · 软件工程学士（B.Eng.）',
+    'info-awards': '荣誉',
+    'info-award-txt': '<b>二等奖</b> · 浙江省网络安全竞赛',
+    'info-lang': '语言',
+    'info-lang-txt': '<b>中文</b> 母语 · <b>英语</b> 专业',
+    'info-interests': '兴趣',
+    'info-interest-txt': 'Bilibili 频道约 1 万粉丝 · 自带 mod 的 Minecraft 服务器',
+
+    'contact-label': '06 — 联系',
+    'cta': '一起，<br>做点 <a href="mailto:tonywu.vip@outlook.com">有意思的事</a>吧。',
+    'copyright': '© 2026 Tony Wu · 新加坡',
+    'nav-email': '邮箱', 'nav-blog': '博客'
+  };
+
+  // remember each element's original English content so switching back is exact
+  const langOrig = new Map();
+  document.querySelectorAll('[data-i18n]').forEach(el => langOrig.set(el.dataset.i18n, el.innerHTML));
+
+  const langBtn = document.getElementById('lang');
+  function applyLang(l) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      el.innerHTML = l === 'zh' ? LANG_ZH[key] : langOrig.get(key);
+    });
+    document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+    langBtn.textContent = l === 'zh' ? 'EN' : '中文';
+    langBtn.setAttribute('aria-label', l === 'zh' ? 'Switch to English' : '切换到中文');
+  }
+  let lang = 'en';
+  try { lang = localStorage.getItem('lang') === 'zh' ? 'zh' : 'en'; } catch (e) {}
+  applyLang(lang);
+  langBtn.onclick = () => {
+    lang = lang === 'en' ? 'zh' : 'en';
+    applyLang(lang);
+    try { localStorage.setItem('lang', lang); } catch (e) {}
   };
 </script>
 </body>
